@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import uuid
+import json
 from PIL import Image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -67,3 +68,26 @@ class DatasetPreprocessor:
                     datagen.fit(img)
                     for x, val in zip(datagen.flow(img, save_to_dir=save_dir, save_prefix=save_prefix, save_format='jpg'), range(10)):
                         pass
+
+    def generate_labels(self, labels_file):
+        labels = {}
+
+        for root, dirs, files in os.walk(self.dataset_dir):
+            for subdir in dirs:
+                # Extract the sub-directory name
+                sub_dir = subdir
+
+                # Extract the person name from the sub-directory name
+                person = sub_dir.split('_')
+                person_name = person[1].capitalize() + ' ' + person[0].capitalize()
+
+                # Use the sub-directory name as the key and assign the corresponding person name as the value
+                labels[sub_dir] = person_name
+
+        # Remove unnecessary labels
+        del labels['masked_faces']
+        del labels['unmasked_faces']
+
+        # Save the labels to a JSON file
+        with open(labels_file, 'w') as f:
+            json.dump(labels, f)
