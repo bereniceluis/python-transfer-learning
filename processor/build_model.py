@@ -52,7 +52,7 @@ class TransferLearningModel:
 
         return model
 
-    def train(self, num_epochs=20, save_filename='model/mobilenetv2_transferlearning.h5'):
+    def train(self, num_epochs=20, save_filename=''):
         train_generator, validation_generator = self._create_data_generators()
         num_classes = len(train_generator.class_indices)
         self.model = self._build_model(num_classes)
@@ -93,7 +93,6 @@ class TransferLearningModel:
         self.save_model(save_filename)
         return history
     
-
     def save_model(self, filepath):
         if self.model is not None:
             self.model.save(filepath)
