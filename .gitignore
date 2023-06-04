@@ -1,3 +1,6 @@
 data/
-transfer_learning copy.ipynb
+model/
 split_dataset.ipynb
+transfer_learning_second_copy.ipynb
+transfer_learning_third_copy.ipynb
+processor/build_model_copy.py
