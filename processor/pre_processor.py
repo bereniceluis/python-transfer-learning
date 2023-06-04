@@ -2,6 +2,7 @@ import os
 import numpy as np
 import uuid
 import json
+import cv2
 from PIL import Image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -66,7 +67,7 @@ class DatasetPreprocessor:
                     save_prefix = os.path.splitext(os.path.basename(image_path))[0]
 
                     datagen.fit(img)
-                    for x, val in zip(datagen.flow(img, save_to_dir=save_dir, save_prefix=save_prefix, save_format='jpg'), range(10)):
+                    for x, val in zip(datagen.flow(img, save_to_dir=save_dir, save_prefix=save_prefix, save_format='jpg'), range(100)):
                         pass
 
     def generate_labels(self, labels_file):
